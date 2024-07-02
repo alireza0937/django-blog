@@ -1,0 +1,64 @@
+{% extends "share/base.html" %}
+
+{% block content %}
+  <article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="">{{ object.author }}</a>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+        {% if object.author == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title">{{ object.title }}</h2>
+      <p class="article-content">{{ object.content }}</p>
+      <div class="icons" style="text-align: right;">
+        <a href="{% url 'create-comment' object.id %}"><i class="fa-regular fa-comment"></i></a>
+        <a href="#"><i class="fa-regular fa-heart"></i></a>
+      </div>
+      <br><br>
+
+      <!-- Comments Section -->
+      <h3>Comments</h3>
+      <div class="comments-section">
+        {% for comment in object.comment_set.all %}
+          <div class="media comment">
+            <img class="rounded-circle comment-img" src="{{ comment.author.profile.image.url }}">
+            <div class="media-body">
+              <h5 class="mt-0">{{ comment.author }}</h5>
+              <small class="text-muted">{{ comment.date_created|date:"F d, Y H:i" }}</small>
+              <p>{{ comment.content }}</p>
+              <!-- Nested comments (replies) -->
+              {% for reply in comment.replies.all %}
+                <div class="media mt-3">
+                  <img class="rounded-circle comment-img" src="{{ reply.author.profile.image.url }}">
+                  <div class="media-body">
+                    <h5 class="mt-0">{{ reply.author }}</h5>
+                    <small class="text-muted">{{ reply.date_created|date:"F d, Y H:i" }}</small>
+                    <p>{{ reply.content }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% empty %}
+          <p>No comments yet.</p>
+        {% endfor %}
+      </div>
+
+      <!-- Comment Form -->
+      <h4>Leave a Comment</h4>
+      <form method="POST" action="{% url 'create-comment' object.id %}" class="comment-form">
+        {% csrf_token %}
+        <div class="form-group">
+          <textarea class="form-control" name="content" rows="3" placeholder="Write your comment here..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+      </form>
+    </div>
+  </article>
+{% endblock content %}
