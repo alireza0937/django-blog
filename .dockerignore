@@ -1,5 +1,7 @@
-.vnev
+.vnev/
+.docker
 Dockerfile
 .git
+.env/
 .gitignore
 .vscode

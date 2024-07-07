@@ -2,13 +2,8 @@ from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 SECRET_KEY = "django-insecure-$uj#wzx1z0rh)ci5q4^=&&w8z1s&9yq_i1+3qlmlav$paxy719"
-
-
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -82,13 +77,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "Asia/Tehran"
-
 USE_I18N = True
-
 USE_TZ = True
-
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / 'static']
@@ -107,3 +98,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "python.django1403@gmail.com"
 EMAIL_HOST_PASSWORD = "tsdm vtwt ssip wwgt"
 # EMAIL_HOST_PASSWORD = "Alireza96551016"
+
+SITE_NAME = 'My Local Site'
+DOMAIN = 'localhost:8000'  
+USE_HTTPS = False 
+
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://redis:6379")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", "redis://redis:6379")
