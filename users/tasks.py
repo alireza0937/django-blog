@@ -12,7 +12,6 @@ from iconfig import settings
 def send_password_reset_email(user_id):
     try:
         user = User.objects.get(id=user_id)
-        print(user)
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         context = {

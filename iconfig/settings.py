@@ -97,11 +97,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "python.django1403@gmail.com"
 EMAIL_HOST_PASSWORD = "tsdm vtwt ssip wwgt"
-# EMAIL_HOST_PASSWORD = "Alireza96551016"
-
-SITE_NAME = 'My Local Site'
+SITE_NAME = 'Django Blog'
 DOMAIN = 'localhost:8000'  
 USE_HTTPS = False 
-
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://redis:6379")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", "redis://redis:6379")
